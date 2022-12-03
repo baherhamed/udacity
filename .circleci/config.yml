@@ -11,7 +11,7 @@ jobs:
     docker:
       - image: 'cimg/base:stable'
     steps:
-          - node/install
+      - node/install
       - checkout
       - run:
           name: Front-End Install
