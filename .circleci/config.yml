@@ -1,13 +1,17 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 orbs:
+  # orgs contain basc recipes and reproducible actions (install node, aws, etc.)
   node: circleci/node@4.1.0
-  aws-cli: circleci/aws-cli@1.3.1
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
   build:
     docker:
       - image: 'cimg/base:stable'
     steps:
-      - node/install
+          - node/install
       - checkout
       - run:
           name: Front-End Install
@@ -26,6 +30,9 @@ jobs:
           command: |
             npm run backend:build
 
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  jobs:
-    - build
+  build-workflow:
+    jobs:
+      - build
